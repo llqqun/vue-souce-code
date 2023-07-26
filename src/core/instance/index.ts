@@ -6,6 +6,11 @@ import { lifecycleMixin } from './lifecycle'
 import { warn } from '../util/index'
 import type { GlobalAPI } from 'types/global-api'
 
+/**
+ * Vue 构造函数
+ * @param options
+ * @constructor
+ */
 function Vue(options) {
   if (__DEV__ && !(this instanceof Vue)) {
     warn('Vue is a constructor and should be called with the `new` keyword')
@@ -13,6 +18,7 @@ function Vue(options) {
   this._init(options)
 }
 
+// 给Vue 原型挂载方法
 //@ts-expect-error Vue has function type
 initMixin(Vue)
 //@ts-expect-error Vue has function type
