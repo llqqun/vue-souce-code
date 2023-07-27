@@ -12,7 +12,9 @@
             <div>
                 {{ text }}
             </div>
+          <input type="text" @input="text= $event.target.value">
         </template>
+      <button class="btn-mount">手动挂载vue进入mount</button>
     </div>
     <script src="./app.js"></script>
 </body>

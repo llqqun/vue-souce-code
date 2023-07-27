@@ -15,6 +15,7 @@ let uid = 0
 
 export function initMixin(Vue: typeof Component) {
   Vue.prototype._init = function (options?: Record<string, any>) {
+    // 把Vue实例赋值给变量vm
     const vm: Component = this
     // a uid
     vm._uid = uid++
@@ -42,6 +43,7 @@ export function initMixin(Vue: typeof Component) {
       // internal component options needs special treatment.
       initInternalComponent(vm, options as any)
     } else {
+      // 用户传递的options选项与当前构造函数的options属性及其父级构造函数的options属性进行合并
       vm.$options = mergeOptions(
         resolveConstructorOptions(vm.constructor as any),
         options || {},
@@ -56,13 +58,21 @@ export function initMixin(Vue: typeof Component) {
     }
     // expose real self
     vm._self = vm
+    // 初始化生命周期
     initLifecycle(vm)
+    // 初始化事件
     initEvents(vm)
+    // 初始化渲染
     initRender(vm)
+    // 调用生命周期钩子函数
     callHook(vm, 'beforeCreate', undefined, false /* setContext */)
+    //初始化injections
     initInjections(vm) // resolve injections before data/props
+    // 初始化props,methods,data,computed,watch
     initState(vm)
+    // 初始化 provide
     initProvide(vm) // resolve provide after data/props
+    // 调用生命周期钩子函数
     callHook(vm, 'created')
 
     /* istanbul ignore if */
@@ -72,6 +82,7 @@ export function initMixin(Vue: typeof Component) {
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
 
+    //如果没有传入el选项，则不进入下一个生命周期阶段，需要用户手动执行vm.$mount方法才进入下一个生命周期阶段
     if (vm.$options.el) {
       vm.$mount(vm.$options.el)
     }
