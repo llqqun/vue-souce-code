@@ -18,7 +18,7 @@ function Vue(options) {
   this._init(options)
 }
 
-// 给Vue 原型挂载方法
+// 给Vue 原型挂载_init方法
 //@ts-expect-error Vue has function type
 initMixin(Vue)
 //@ts-expect-error Vue has function type

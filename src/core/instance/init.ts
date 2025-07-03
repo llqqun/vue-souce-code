@@ -15,6 +15,7 @@ let uid = 0
 
 export function initMixin(Vue: typeof Component) {
   Vue.prototype._init = function (options?: Record<string, any>) {
+    console.log('_init挂载到Vue原型上')
     // 把Vue实例赋值给变量vm
     const vm: Component = this
     // a uid
@@ -64,15 +65,16 @@ export function initMixin(Vue: typeof Component) {
     initEvents(vm)
     // 初始化渲染
     initRender(vm)
-    // 调用生命周期钩子函数
+    // 调用beforeCreate生命周期钩子函数
     callHook(vm, 'beforeCreate', undefined, false /* setContext */)
     //初始化injections
-    initInjections(vm) // resolve injections before data/props
+    initInjections(vm)
     // 初始化props,methods,data,computed,watch
     initState(vm)
     // 初始化 provide
     initProvide(vm) // resolve provide after data/props
     // 调用生命周期钩子函数
+    // 调用created生命周期钩子函数
     callHook(vm, 'created')
 
     /* istanbul ignore if */

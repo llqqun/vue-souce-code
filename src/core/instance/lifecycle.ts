@@ -31,10 +31,19 @@ export function setActiveInstance(vm: Component) {
   }
 }
 
+/**
+ * 给实例挂载属性并初始化
+ * $parent
+ * $root
+ * $children
+ * $refs
+ * @param vm
+ */
 export function initLifecycle(vm: Component) {
   const options = vm.$options
 
   // locate first non-abstract parent
+  // 查找第一个非抽象父级
   let parent = options.parent
   if (parent && !options.abstract) {
     while (parent.$options.abstract && parent.$parent) {
@@ -43,6 +52,8 @@ export function initLifecycle(vm: Component) {
     parent.$children.push(vm)
   }
 
+  // 如果存在父级实例,则根实例为父实例的根实例
+  // 如果不存在父级实例, 则根实例为实例本身
   vm.$parent = parent
   vm.$root = parent ? parent.$root : vm
 
@@ -389,7 +400,7 @@ export function deactivateChildComponent(vm: Component, direct?: boolean) {
     callHook(vm, 'deactivated')
   }
 }
-
+// 触发钩子函数
 export function callHook(
   vm: Component,
   hook: string,

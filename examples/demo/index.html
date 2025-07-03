@@ -12,10 +12,14 @@
             <div>
                 {{ text }}
             </div>
+          <button @click="handleAlert">弹窗</button>
           <input type="text" @input="text= $event.target.value">
+          <my-demo1></my-demo1>
+          <my-demo2 @click.native="handleClick"></my-demo2>
         </template>
       <button class="btn-mount">手动挂载vue进入mount</button>
     </div>
+    <script src="mixins.js"></script>
     <script src="./app.js"></script>
 </body>
 </html>
